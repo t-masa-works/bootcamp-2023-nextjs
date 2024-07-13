@@ -6,7 +6,7 @@ type Props = {
   posts: Post[];
 };
 
-const Page = ({ posts }: Props) => {
+const Page = ({ posts　}: Props) => {
   return (
     <div>
       <h1>記事一覧</h1>

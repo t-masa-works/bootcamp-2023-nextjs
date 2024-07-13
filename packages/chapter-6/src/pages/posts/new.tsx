@@ -34,6 +34,13 @@ const Page = () => {
             <ErrorMessage message={formState.errors.title?.message} />
           </label>
         </div>
+        <div>
+          <label>
+            content:
+            <textarea {...register("content")} />
+            <ErrorMessage message={formState.errors.content?.message} />
+          </label>
+        </div>
         {/* <div> ✏️ ① </div> */}
       </fieldset>
       <hr />
