@@ -1,13 +1,19 @@
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { createPostInputSchema, CreatePostInputSchemaType } from "@/lib/zod";
+import { prisma } from "@/prisma";
 import { createPost } from "@/services/client/posts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next/types";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const Page = () => {
+interface Props {
+  tags: { id: number; name: string }[];
+}
+
+const Page = ({ tags }: Props) => {
   const router = useRouter();
   const [error, setError] = useState<string>();
   const { handleSubmit, register, formState } =
@@ -17,6 +23,7 @@ const Page = () => {
   return (
     <form
       onSubmit={handleSubmit(async (values) => {
+        console.log(values);
         const { data, err } = await createPost(values);
         if (err) {
           setError(err.message);
@@ -41,6 +48,21 @@ const Page = () => {
             <ErrorMessage message={formState.errors.content?.message} />
           </label>
         </div>
+        <div>
+          <label>tags:</label>
+          {tags.map((tag) => (
+            <div key={tag.id}>
+              <input
+                type="checkbox"
+                id={tag.id.toString()}
+                value={tag.name}
+                {...register("tags")}
+              />
+              <label>{tag.name}</label>
+            </div>
+          ))}
+          <ErrorMessage message={formState.errors.tags?.message} />
+        </div>
         {/* <div> ✏️ ① </div> */}
       </fieldset>
       <hr />
@@ -50,6 +72,20 @@ const Page = () => {
       <Link href="/">Back to Top</Link>
     </form>
   );
+};
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  try {
+    const tags = await prisma.tag.findMany();
+    return {
+      props: { tags },
+    };
+  } catch (error) {
+    console.error("Failed to fetch tags", error);
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default Page;
