@@ -9,8 +9,8 @@ import { GetServerSideProps } from "next/types";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-interface Props {
-  tags: { id: number; name: string }[];
+type Props = {
+  tags: { id: number; name: string;}[];
 }
 
 const Page = ({ tags }: Props) => {
@@ -19,7 +19,9 @@ const Page = ({ tags }: Props) => {
   const { handleSubmit, register, formState } =
     useForm<CreatePostInputSchemaType>({
       resolver: zodResolver(createPostInputSchema),
+      defaultValues: { tags: [] },
     });
+
   return (
     <form
       onSubmit={handleSubmit(async (values) => {
@@ -73,6 +75,7 @@ const Page = ({ tags }: Props) => {
     </form>
   );
 };
+
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   try {
