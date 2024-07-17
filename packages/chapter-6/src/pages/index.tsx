@@ -9,6 +9,9 @@ const Page = () => {
       <li>
         <Link href="/posts/new">Posts New</Link>
       </li>
+      <li>
+        <Link href="/tags">Tag List</Link>
+      </li>
     </ul>
   );
 };

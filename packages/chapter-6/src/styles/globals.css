@@ -108,3 +108,24 @@ a:hover {
     color-scheme: dark;
   }
 }
+
+ul {
+  margin: 20px;
+}
+
+li + li {
+ margin-top: 5px;
+}
+
+.back {
+  list-style: none;
+}
+
+.back a {
+  color: red;
+  font-weight: bold;
+}
+
+.back + .back {
+  margin-top: 10px;
+}

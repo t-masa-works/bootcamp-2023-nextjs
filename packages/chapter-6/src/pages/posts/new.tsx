@@ -71,7 +71,9 @@ const Page = ({ tags }: Props) => {
       <button>submit</button>
       <ErrorMessage message={error} />
       <hr />
-      <Link href="/">Back to Top</Link>
+      <ul>
+        <li className="back"><Link href="/">Back to Top</Link></li>
+      </ul>
     </form>
   );
 };
