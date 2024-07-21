@@ -2,10 +2,10 @@ import { gssp } from "@/lib/next/gssp";
 import { Post, Tag, prisma } from "@/prisma";
 import Link from "next/link";
 
-type PostWithTags = Post[] & { tags: Tag[] };
+type PostWithTags = Post & { tags: Tag[] };
 
 type Props = {
-  posts: PostWithTags;
+  posts: PostWithTags[];
   tags: Tag[];
 };
 
@@ -28,19 +28,27 @@ const Page = ({ posts, tags }: Props) => {
       <hr />
       <h1>記事一覧</h1>
       <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link href={`/posts/${post.id}`}>{post.title}</Link>
-            {post.tags.map((tag) => (
-              <span
-                key={tag.id}
-                style={{ marginLeft: "10px", fontSize: "12px", color: "gray" }}
-              >
-                {tag.name}
-              </span>
-            ))}
-          </li>
-        ))}
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <li key={post.id}>
+              <Link href={`/posts/${post.id}`}>{post.title}</Link>
+              {post.tags.map((tag) => (
+                <span
+                  key={tag.id}
+                  style={{
+                    marginLeft: "10px",
+                    fontSize: "12px",
+                    color: "gray",
+                  }}
+                >
+                  {tag.name}
+                </span>
+              ))}
+            </li>
+          ))
+        ) : (
+          <p>記事がありません</p>
+        )}
       </ul>
     </div>
   );

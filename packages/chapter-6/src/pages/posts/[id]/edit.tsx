@@ -15,7 +15,7 @@ type Props = {
   tags: Tag[];
 };
 
-const Page = ({ post,tags }: Props) => {
+const Page = ({ post, tags }: Props) => {
   const router = useRouter();
   const [error, setError] = useState<string>();
   const { handleSubmit, register, formState, setValue } =
@@ -28,12 +28,12 @@ const Page = ({ post,tags }: Props) => {
       resolver: zodResolver(updatePostInputSchema),
     });
 
-    useEffect(() => {
-      if (post.tags) {
-        const tagIds = post.tags.map((tag) => tag.id.toString());
-        setValue("tags", tagIds);
-      }
-    }, [tags, setValue]);
+  useEffect(() => {
+    if (post.tags) {
+      const tagIds = post.tags.map((tag) => tag.id.toString());
+      setValue("tags", tagIds);
+    }
+  }, [tags, setValue]);
 
   return (
     <form
@@ -85,7 +85,11 @@ const Page = ({ post,tags }: Props) => {
       <button>submit</button>
       <ErrorMessage message={error} />
       <hr />
-      <Link href="/">Back to Top</Link>
+      <ul>
+        <li className="back">
+          <Link href="/">Back to Top</Link>
+        </li>
+      </ul>
     </form>
   );
 };
@@ -104,4 +108,3 @@ export const getServerSideProps = gssp<Props>(async ({ query }) => {
 });
 
 export default Page;
-

@@ -11,12 +11,16 @@ const TagPage = ({ posts, tag }: Props) => {
   return (
     <div>
       <h1>{tag.name} の記事一覧</h1>
-      <ul style={{display: "grid", gridTemplateColumns: "repeat(5,1fr)" }}>
-        {posts.map((post, tag) => (
-          <li key={post.id}>
-            <Link href={`/posts/${post.id}`}>{post.title}</Link>
-          </li>
-        ))}
+      <ul style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)" }}>
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <li key={post.id}>
+              <Link href={`/posts/${post.id}`}>{post.title}</Link>
+            </li>
+          ))
+        ) : (
+          <p>このタグの記事がありません</p>
+        )}
       </ul>
       <ul>
         <li className="back">

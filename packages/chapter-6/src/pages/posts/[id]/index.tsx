@@ -22,7 +22,11 @@ const Page = ({ post }: Props) => {
       <hr />
       <Link href={`/posts/${post.id}/edit`}>Edit</Link>
       <hr />
-      <Link href="/posts">Back to Posts</Link>
+      <ul>
+        <li className="back">
+          <Link href="/posts">Back to Posts</Link>
+        </li>
+      </ul>
     </div>
   );
 };

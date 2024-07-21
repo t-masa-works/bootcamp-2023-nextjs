@@ -1,8 +1,9 @@
 import {
   CreatePostInputSchemaType,
+  CreateTagSchemaType,
   UpdatePostInputSchemaType,
 } from "@/lib/zod";
-import { Post } from "@/prisma";
+import { Post, Tag } from "@/prisma";
 import {
   handleFetchReject,
   handleFetchResolve,
@@ -31,5 +32,17 @@ export const updatePost = (
     body: JSON.stringify(input),
   })
     .then((res) => handleFetchResolve<Post>(res))
+    .catch(handleFetchReject);
+};
+
+export const createTag = (
+  input: CreateTagSchemaType,
+): Promise<Result<Tag>> => {
+  return fetch("/api/tags", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+  })
+    .then((res) => handleFetchResolve<Tag>(res))
     .catch(handleFetchReject);
 };

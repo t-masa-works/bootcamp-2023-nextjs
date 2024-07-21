@@ -12,6 +12,9 @@ const Page = () => {
       <li>
         <Link href="/tags">Tag List</Link>
       </li>
+      <li>
+        <Link href="/tags/addTag">Create New Tag</Link>
+      </li>
     </ul>
   );
 };
